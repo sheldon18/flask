@@ -6,6 +6,10 @@ app = Flask(__name__)       #in Flask, convention is that our variable is called
 @app.route("/")             #decorator, alwasy starts with an @ sign and aka pie notation, it is a way of wrapping functions
 def index():
     return render_template("index.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
     
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
