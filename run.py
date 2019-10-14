@@ -1,9 +1,9 @@
 import os
 import json
-from flask import Flask, render_template     # captial F indicates that its a class name
+from flask import Flask, render_template, request, flash     # captial F indicates that its a class name, request library and flash function from Flask
 
 app = Flask(__name__)       #in Flask, convention is that our variable is called app
-
+app.secret_key = 'some_secret'
 
 @app.route("/")             #decorator, alwasy starts with an @ sign and aka pie notation, it is a way of wrapping functions
 def index():
@@ -31,8 +31,11 @@ def about_member(member_name):
     return render_template("member.html", member=member)
 
 
-@app.route('/contact')
+@app.route('/contact', methods=["GET", "POST"])
 def contact():
+    if request.method == "POST":
+        flash("Thanks {}, we have received your message!".format(request.form["name"]))
+        
     return render_template("contact.html", page_title="Contact")
 
 
